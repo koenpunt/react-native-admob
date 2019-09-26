@@ -43,6 +43,9 @@ jobs:
       - name: Update App.js
         working-directory: ./ReactNativeAdMobExample
         run: cp ../Example/App.js ./App.js
+      - name: Start packager
+        working-directory: ./ReactNativeAdMobExample
+        run: react-native start &
       - name: Run iOS
         working-directory: ./ReactNativeAdMobExample
         run: react-native run-ios --simulator "iPhone 11 Pro"
@@ -52,12 +55,12 @@ jobs:
         with:
           name: screenshot
           path: ./screenshot.png
-      # - name: Run iOS tests
-      #   working-directory: ./ReactNativeAdMobExample/ios
-      #   run: |
-      #     set -o pipefail && xcodebuild \
-      #       -workspace ReactNativeAdMobExample.xcworkspace \
-      #       -scheme ReactNativeAdMobExample \
-      #       -sdk iphonesimulator \
-      #       -destination 'platform=iOS Simulator,name=iPhone 11 Pro' \
-      #       test | xcpretty
+      - name: Run iOS tests
+        working-directory: ./ReactNativeAdMobExample/ios
+        run: |
+          set -o pipefail && xcodebuild \
+            -workspace ReactNativeAdMobExample.xcworkspace \
+            -scheme ReactNativeAdMobExample \
+            -sdk iphonesimulator \
+            -destination 'platform=iOS Simulator,name=iPhone 11 Pro' \
+            test | xcpretty
